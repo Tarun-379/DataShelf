@@ -10,7 +10,7 @@ This app has zero build step — it's plain HTML/CSS/JS using only browser-nativ
 APIs (Web Crypto, IndexedDB). Any static file server works:
 
 ```bash
-cd Nexus
+cd vault-app
 python3 -m http.server 8000
 # open http://localhost:8000 in Chrome, Firefox, Safari, or Edge
 ```
