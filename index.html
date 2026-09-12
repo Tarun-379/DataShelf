@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nexus</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ====================== LOCK SCREEN ====================== -->
+  <div id="lock-screen">
+    <div class="lock-card">
+      <div class="lock-logo">NEXUS</div>
+      <div class="lock-sub" id="lock-sub-text">Your private space.</div>
+
+      <form id="setup-form" class="hidden">
+        <input type="password" id="setup-password" placeholder="Create password" autocomplete="new-password" />
+        <input type="password" id="setup-password-confirm" placeholder="Confirm password" autocomplete="new-password" />
+        <button type="submit">Create Vault</button>
+      </form>
+
+      <form id="unlock-form" class="hidden">
+        <input type="password" id="unlock-password" placeholder="Enter password" autocomplete="current-password" />
+        <button type="submit">Unlock</button>
+      </form>
+
+      <div id="lock-error"></div>
+    </div>
+  </div>
+
+  <!-- ====================== MAIN APP ====================== -->
+  <div id="app-screen" class="hidden">
+    <div id="toolbar">
+      <span class="brand">NEXUS</span>
+      <button id="add-text-btn" title="Add a text card">+ Idea</button>
+      <button id="add-image-btn" title="Add an image">+ Image</button>
+      <button id="add-link-btn" title="Add a link">+ Link</button>
+      <button id="draw-btn" title="Freehand drawing">✏ Draw</button>
+      <button id="connect-btn" title="Connect two cards">↗ Connect</button>
+      <button id="undo-btn" title="Undo (Ctrl+Z)">↶ Undo</button>
+      <button id="redo-btn" title="Redo (Ctrl+Shift+Z)">↷ Redo</button>
+      <button id="zoom-out-btn" title="Zoom out">–</button>
+      <button id="zoom-reset-btn" title="Reset view">100%</button>
+      <button id="zoom-in-btn" title="Zoom in">+</button>
+      <div class="spacer"></div>
+      <input type="text" id="search-input" placeholder="Search this canvas…" />
+      <span id="save-indicator"></span>
+      <button id="lock-btn" title="Lock vault">🔒</button>
+    </div>
+    <div id="canvas-root"></div>
+  </div>
+
+  <input type="file" id="image-input" accept="image/*" class="hidden" />
+
+  <script src="js/crypto.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
