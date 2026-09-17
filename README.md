@@ -19,6 +19,17 @@ python3 -m http.server 8000
 You'll land on a vault picker. Create your first vault (give it a name and
 password), and you're in.
 
+## Live deployment
+
+DataShelf is deployed on Render and is available here:
+
+**[Open the live DataShelf app](https://datashelf-uhu7.onrender.com)**
+
+The deployment serves the same static frontend as the local version. Vaults
+are encrypted and stored in the browser's IndexedDB, so data created on the
+deployed origin is separate from data created at `localhost`. Use the
+encrypted **Export** action to move a vault between browsers or environments.
+
 ## What's new since v1
 
 Everything below was added on top of the original MVP:
