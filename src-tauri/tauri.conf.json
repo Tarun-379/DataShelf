@@ -1,15 +1,15 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Nexus",
+  "productName": "DataShelf",
   "version": "0.1.0",
-  "identifier": "com.tarun.nexus",
+  "identifier": "com.tarun.datashelf",
   "build": {
-    "frontendDist": "../"
+    "frontendDist": "../frontend"
   },
   "app": {
     "windows": [
       {
-        "title": "Nexus",
+        "title": "DataShelf",
         "width": 1200,
         "height": 800,
         "minWidth": 720,

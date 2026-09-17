@@ -1,0 +1,242 @@
+:root {
+  --bg: #0a0c10;
+  --bg-elevated: #12151b;
+  --border: #23272f;
+  --text: #e6e9ef;
+  --text-dim: #7d8590;
+  --accent: #6ee7c8;
+  --accent-dim: #2b3b37;
+  --danger: #ff6b6b;
+  --card-bg: #14181f;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+.hidden { display: none !important; }
+button { font-family: inherit; }
+
+/* ---------------- Picker / Lock screens ---------------- */
+#picker-screen, #lock-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 30%, #10141b 0%, #05070a 70%);
+}
+.lock-card {
+  width: 360px;
+  padding: 40px 36px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.lock-logo { font-size: 13px; letter-spacing: 6px; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
+.lock-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+.lock-sub span { color: var(--text); font-weight: 600; }
+
+#vault-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; max-height: 260px; overflow-y: auto; }
+.vault-row {
+  padding: 12px 14px; background: #0d1015; border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 14px; cursor: pointer; text-align: left; transition: border-color 0.12s;
+}
+.vault-row:hover { border-color: var(--accent); }
+.empty-hint { font-size: 12.5px; color: var(--text-dim); padding: 10px 0; }
+.secondary-btn {
+  width: 100%; padding: 11px; background: transparent; border: 1px dashed var(--border); border-radius: 8px;
+  color: var(--accent); font-size: 13.5px; cursor: pointer;
+}
+.secondary-btn:hover { border-color: var(--accent); }
+.link-btn { background: none; border: none; color: var(--text-dim); font-size: 12px; margin-top: 16px; cursor: pointer; }
+.link-btn:hover { color: var(--text); }
+
+.lock-card input[type="password"], .lock-card input[type="text"] {
+  width: 100%; padding: 12px 14px; margin-bottom: 12px; background: #0d1015; border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 14px; outline: none;
+}
+.lock-card input:focus { border-color: var(--accent); }
+.lock-card button[type="submit"] {
+  width: 100%; padding: 12px; margin-top: 8px; background: var(--accent); color: #06110d; border: none;
+  border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity 0.15s;
+}
+.lock-card button[type="submit"]:hover { opacity: 0.88; }
+#lock-error { min-height: 18px; margin-top: 14px; font-size: 12.5px; color: var(--danger); opacity: 0; transition: opacity 0.15s; }
+#lock-error.visible { opacity: 1; }
+
+/* ---------------- App shell ---------------- */
+#app-screen { height: 100vh; display: flex; flex-direction: column; }
+
+#toolbar {
+  display: flex; align-items: center; gap: 4px; padding: 8px 14px; flex-wrap: wrap;
+  background: rgba(18,21,27,0.85); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); z-index: 10;
+}
+#toolbar .brand { font-size: 12px; letter-spacing: 3px; color: var(--accent); font-weight: 700; margin-right: 10px; }
+#toolbar button {
+  background: transparent; border: 1px solid transparent; color: var(--text-dim); padding: 7px 10px;
+  border-radius: 7px; font-size: 12.5px; cursor: pointer; transition: all 0.12s; white-space: nowrap;
+}
+#toolbar button:hover { background: var(--bg-elevated); color: var(--text); }
+#toolbar button.active { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+#toolbar .spacer { flex: 1; }
+#toolbar input[type="text"] {
+  background: #0d1015; border: 1px solid var(--border); color: var(--text); padding: 7px 10px; border-radius: 7px;
+  font-size: 13px; width: 160px; outline: none;
+}
+#save-indicator { font-size: 11px; color: var(--text-dim); opacity: 0; transition: opacity 0.2s; width: 50px; }
+#save-indicator.visible { opacity: 1; }
+#lock-btn { color: var(--danger); font-size: 15px; padding: 6px 10px; }
+
+/* ---------------- Canvas tabs ---------------- */
+#canvas-tabs {
+  display: flex; align-items: center; gap: 4px; padding: 6px 14px; background: #0d1015;
+  border-bottom: 1px solid var(--border); overflow-x: auto;
+}
+.canvas-tab {
+  display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 6px 6px 0 0;
+  font-size: 12px; color: var(--text-dim); cursor: pointer; background: transparent; border: 1px solid transparent; border-bottom: none;
+}
+.canvas-tab.active { color: var(--accent); background: var(--bg); border-color: var(--border); }
+.canvas-tab-close { opacity: 0.5; font-size: 13px; }
+.canvas-tab-close:hover { opacity: 1; color: var(--danger); }
+.canvas-tab-add { background: none; border: 1px dashed var(--border); color: var(--text-dim); border-radius: 6px; padding: 4px 9px; cursor: pointer; font-size: 13px; }
+.canvas-tab-add:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------------- Canvas area ---------------- */
+#canvas-wrap { position: relative; flex: 1; overflow: hidden; }
+#canvas-root {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle, #1b1f27 1px, transparent 1px) 0 0/28px 28px, var(--bg);
+  cursor: default;
+}
+#canvas-root.space-pan { cursor: grab; }
+#canvas-root.mode-draw { cursor: crosshair; }
+#canvas-root.mode-connect { cursor: cell; }
+
+.vault-world { position: absolute; top: 0; left: 0; width: 0; height: 0; transform-origin: 0 0; }
+.vault-svg-layer, .vault-guide-layer { position: absolute; overflow: visible; width: 1px; height: 1px; pointer-events: none; }
+.vault-object-layer { position: absolute; top: 0; left: 0; }
+
+.vault-arrow-line { stroke: var(--accent); stroke-width: 2; opacity: 0.85; }
+.arrowhead-fill { fill: var(--accent); }
+.align-guide { stroke: #ff5fae; stroke-width: 1; stroke-dasharray: 4 3; opacity: 0.9; }
+.drawing-path { stroke: var(--text); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.drawing-path.live { stroke: var(--accent); }
+
+/* ---------------- Frames ---------------- */
+.vault-frame {
+  position: absolute; border: 2px dashed var(--border); border-radius: 12px; background: rgba(255,255,255,0.015);
+}
+.vault-frame.selected { border-style: solid; box-shadow: 0 0 0 2px var(--accent-dim); }
+.frame-title {
+  position: absolute; top: -11px; left: 12px; background: var(--bg); padding: 0 8px; font-size: 11px;
+  color: var(--text-dim); cursor: move; border-radius: 4px;
+}
+.vault-frame .resize-handle { right: 2px; bottom: 2px; }
+
+/* ---------------- Cards ---------------- */
+.vault-card {
+  position: absolute; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35); overflow: hidden; transition: border-color 0.1s, box-shadow 0.1s, opacity 0.15s;
+}
+.vault-card.selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-dim), 0 6px 18px rgba(0,0,0,0.35); }
+.vault-card.dimmed, .vault-frame.dimmed { opacity: 0.15; }
+
+.vault-card.color-amber { border-left: 3px solid #e0b74f; }
+.vault-card.color-rose { border-left: 3px solid #e08aa3; }
+.vault-card.color-teal { border-left: 3px solid #5fc7ae; }
+.vault-card.color-violet { border-left: 3px solid #a89bee; }
+
+.card-head { display: flex; align-items: center; gap: 4px; padding: 6px 6px 0; cursor: move; }
+.card-head .card-title {
+  flex: 1; background: transparent; border: none; color: var(--text); font-size: 13px; font-weight: 600;
+  outline: none; padding: 2px 2px; min-width: 0;
+}
+.color-btn, .pin-btn {
+  background: none; border: none; cursor: pointer; padding: 2px 4px; border-radius: 4px; flex-shrink: 0;
+  color: var(--text-dim); font-size: 13px; line-height: 1;
+}
+.color-btn:hover, .pin-btn:hover { background: rgba(255,255,255,0.06); }
+.color-btn .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--swatch-color, #3a3f4a); }
+.pin-btn.pinned { color: #e0b74f; }
+
+.card-body-render, .card-body-edit {
+  width: 100%; height: calc(100% - 30px); font-size: 13px; padding: 4px 10px 10px; line-height: 1.5; overflow-y: auto;
+}
+.card-body-render { cursor: text; }
+.card-body-edit {
+  background: transparent; border: none; color: var(--text); resize: none; outline: none; font-family: inherit;
+}
+.md-line { min-height: 1.4em; }
+.md-checkbox-line { display: flex; align-items: flex-start; gap: 6px; }
+.md-checkbox-line input { margin-top: 3px; accent-color: var(--accent); }
+.md-done { color: var(--text-dim); text-decoration: line-through; }
+.card-body-render code { background: #0d1015; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+.vault-image .card-head { height: 14px; padding-top: 2px; background: linear-gradient(180deg, rgba(0,0,0,0.3), transparent); }
+.card-img { width: 100%; height: calc(100% - 14px); object-fit: contain; display: block; pointer-events: none; user-select: none; }
+
+.vault-link { display: flex; flex-direction: column; }
+.card-link { padding: 4px 10px 10px; color: var(--accent); font-size: 12.5px; word-break: break-all; text-decoration: none; }
+.card-link:hover { text-decoration: underline; }
+
+.vault-audio .card-audio { width: calc(100% - 20px); margin: 4px 10px; height: 34px; }
+
+.vault-drawing { background: transparent; border-color: transparent; box-shadow: none; }
+.vault-drawing.selected { border-color: var(--accent); background: rgba(20,24,31,0.35); }
+.card-drawing-svg { width: 100%; height: 100%; overflow: visible; }
+
+.resize-handle {
+  position: absolute; right: 2px; bottom: 2px; width: 12px; height: 12px; cursor: nwse-resize;
+  border-right: 2px solid var(--text-dim); border-bottom: 2px solid var(--text-dim); opacity: 0.5;
+}
+.vault-card:hover .resize-handle, .vault-frame:hover .resize-handle { opacity: 1; }
+
+.vault-selection-box { position: absolute; display: none; pointer-events: none; border: 1px solid var(--accent); background: rgba(110,231,200,0.08); z-index: 999; }
+
+/* ---------------- Minimap ---------------- */
+#minimap {
+  position: absolute; bottom: 16px; right: 16px; width: 170px; height: 128px; background: rgba(13,16,21,0.85);
+  border: 1px solid var(--border); border-radius: 8px; cursor: pointer; backdrop-filter: blur(4px);
+}
+.minimap-svg { width: 100%; height: 100%; }
+.minimap-node { fill: var(--text-dim); opacity: 0.7; }
+.minimap-viewport { fill: rgba(110,231,200,0.12); stroke: var(--accent); stroke-width: 1; }
+
+/* ---------------- Pin panel ---------------- */
+#pin-panel {
+  position: absolute; top: 12px; right: 12px; width: 200px; max-height: 260px; overflow-y: auto;
+  background: rgba(18,21,27,0.92); border: 1px solid var(--border); border-radius: 10px; padding: 8px;
+  display: flex; flex-direction: column; gap: 4px; backdrop-filter: blur(6px);
+}
+.pin-panel-header { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; padding: 4px 6px 6px; }
+.pin-item {
+  text-align: left; background: none; border: none; color: var(--text); font-size: 12.5px; padding: 6px 8px;
+  border-radius: 6px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pin-item:hover { background: var(--bg-elevated); }
+
+/* ---------------- Suggest panel ---------------- */
+#suggest-panel {
+  position: absolute; top: 12px; left: 12px; width: 320px; max-height: 320px; overflow-y: auto;
+  background: rgba(18,21,27,0.95); border: 1px solid var(--border); border-radius: 10px; padding: 10px;
+  backdrop-filter: blur(6px);
+}
+.suggest-empty { font-size: 12.5px; color: var(--text-dim); padding: 6px; }
+.suggest-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 6px;
+  border-bottom: 1px solid var(--border); font-size: 12px;
+}
+.suggest-row span { flex: 1; color: var(--text); }
+.suggest-row button {
+  background: var(--accent-dim); color: var(--accent); border: none; border-radius: 5px; padding: 4px 8px;
+  font-size: 11px; cursor: pointer;
+}
+.suggest-row button.ghost { background: none; color: var(--text-dim); }

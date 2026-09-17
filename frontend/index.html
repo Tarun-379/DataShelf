@@ -3,18 +3,30 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Nexus</title>
+<title>DataShelf</title>
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ====================== LOCK SCREEN ====================== -->
-  <div id="lock-screen">
+  <!-- ====================== VAULT PICKER ====================== -->
+  <div id="picker-screen">
     <div class="lock-card">
-      <div class="lock-logo">NEXUS</div>
-      <div class="lock-sub" id="lock-sub-text">Your private space.</div>
+      <div class="lock-logo">DataShelf</div>
+      <div class="lock-sub">Choose a vault.</div>
+      <div id="vault-list"></div>
+      <button id="new-vault-btn" class="secondary-btn">+ New Vault</button>
+    </div>
+  </div>
+
+  <!-- ====================== LOCK SCREEN ====================== -->
+  <div id="lock-screen" class="hidden">
+    <div class="lock-card">
+      <div class="lock-logo">DataShelf</div>
+      <div class="lock-sub hidden" id="setup-sub">Create a new vault.</div>
+      <div class="lock-sub hidden" id="unlock-sub">Enter password for <span id="unlocking-vault-name"></span></div>
 
       <form id="setup-form" class="hidden">
+        <input type="text" id="setup-vault-name" placeholder="Vault name (e.g. Work, Personal)" autocomplete="off" />
         <input type="password" id="setup-password" placeholder="Create password" autocomplete="new-password" />
         <input type="password" id="setup-password-confirm" placeholder="Confirm password" autocomplete="new-password" />
         <button type="submit">Create Vault</button>
@@ -26,32 +38,48 @@
       </form>
 
       <div id="lock-error"></div>
+      <button id="back-to-picker-btn" class="link-btn">← Back to vaults</button>
     </div>
   </div>
 
   <!-- ====================== MAIN APP ====================== -->
   <div id="app-screen" class="hidden">
     <div id="toolbar">
-      <span class="brand">NEXUS</span>
+      <span class="brand">DataShelf</span>
       <button id="add-text-btn" title="Add a text card">+ Idea</button>
       <button id="add-image-btn" title="Add an image">+ Image</button>
       <button id="add-link-btn" title="Add a link">+ Link</button>
+      <button id="add-frame-btn" title="Add a frame to group cards">▢ Frame</button>
+      <button id="audio-btn" title="Record a voice note">🎙 Rec</button>
       <button id="draw-btn" title="Freehand drawing">✏ Draw</button>
       <button id="connect-btn" title="Connect two cards">↗ Connect</button>
-      <button id="undo-btn" title="Undo (Ctrl+Z)">↶ Undo</button>
-      <button id="redo-btn" title="Redo (Ctrl+Shift+Z)">↷ Redo</button>
+      <button id="graph-btn" title="Auto-arrange connected cards">◈ Graph</button>
+      <button id="suggest-btn" title="Suggest connections (local, opt-in — nothing leaves your device)">✨ Suggest</button>
+      <button id="undo-btn" title="Undo (Ctrl+Z)">↶</button>
+      <button id="redo-btn" title="Redo (Ctrl+Shift+Z)">↷</button>
       <button id="zoom-out-btn" title="Zoom out">–</button>
       <button id="zoom-reset-btn" title="Reset view">100%</button>
       <button id="zoom-in-btn" title="Zoom in">+</button>
       <div class="spacer"></div>
       <input type="text" id="search-input" placeholder="Search this canvas…" />
+      <button id="export-btn" title="Download an encrypted backup of this vault">⬇ Export</button>
+      <button id="import-btn" title="Load an encrypted backup file">⬆ Import</button>
       <span id="save-indicator"></span>
       <button id="lock-btn" title="Lock vault">🔒</button>
     </div>
-    <div id="canvas-root"></div>
+
+    <div id="canvas-tabs"></div>
+
+    <div id="canvas-wrap">
+      <div id="canvas-root"></div>
+      <div id="minimap" class="hidden"></div>
+      <div id="pin-panel" class="hidden"></div>
+      <div id="suggest-panel" class="hidden"></div>
+    </div>
   </div>
 
   <input type="file" id="image-input" accept="image/*" class="hidden" />
+  <input type="file" id="import-input" accept="application/json,.json" class="hidden" />
 
   <script src="js/crypto.js"></script>
   <script src="js/storage.js"></script>
